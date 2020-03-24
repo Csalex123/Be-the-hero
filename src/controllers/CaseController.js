@@ -14,6 +14,7 @@ module.exports = {
     const org_id = req.headers.authorization;
 
     const result = await connection('case').insert({
+        
         title,
         description,
         value,
