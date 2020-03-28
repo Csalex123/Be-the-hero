@@ -3,8 +3,21 @@ const connection = require('../database/connection');
 module.exports = {
 
     async index(req, res) {
+        //Páginação
+        const { page = 1} = req.query;
 
-        const cases = await connection('incidents').select('*');
+        //Pegar de 5 e 5 registros
+        const cases = await connection('incidents')
+        .join('ongs','ongs.id', '=', 'incidents.ong_id')
+        .limit(5)
+        .offset( (page-1) *5 )
+        .select(['incidents.*','ongs.name','ongs.email','ongs.whatsapp','ongs.uf']);
+
+        //Pegando a quantdiade de Incidentes para enviar pro front também.
+        const [count] = await connection('incidents').count();
+
+       //Enviando nº total de itens pro front
+        res.header('X-Total-Coun', count['count(*)']);
 
         return res.json(cases)
     },

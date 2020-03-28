@@ -11,7 +11,7 @@ const routes = express.Router();
 /*Rota para listar retornar todas as ongs*/
 routes.get('/ongs', OngController.index);
 /* Rota que cria uma ong */
-routes.post('/Createongs',  OngController.create);
+routes.post('/ongs',  OngController.create);
 
 routes.get('/profile', ProfileController.index);
 
@@ -21,7 +21,7 @@ routes.delete('/cases/:id', CaseController.delete);
 
 
 //Rota para efetuar login
-routes.post('/sessions'/ SesssionController.create); 
+routes.post('/sessions', SesssionController.create); 
 
 
 
